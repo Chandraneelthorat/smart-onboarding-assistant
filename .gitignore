@@ -1,0 +1,28 @@
+# --- Security (CRITICAL) ---
+.env
+claude_desktop_config.json
+secrets.json
+
+# --- Python & Build Files (Your previous rules) ---
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# --- Virtual Environments (uv/python) ---
+.venv/
+venv/
+env/
+
+# --- IDE Settings (PyCharm/VS Code) ---
+.idea/
+.vscode/
+
+# --- Operating System Files ---
+.DS_Store
+
+# --- Frontend ---
+frontend/node_modules/
+frontend/dist/

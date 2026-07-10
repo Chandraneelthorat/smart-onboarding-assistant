@@ -1,0 +1,49 @@
+# Render Blueprint — single Docker web service using an external (Neon) Postgres.
+# Deploy: push to GitHub, then Render Dashboard -> New -> Blueprint -> pick this repo.
+# Secrets marked `sync: false` must be filled in the Render dashboard.
+
+services:
+  - type: web
+    name: smart-onboarding-assistant
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # External Postgres (Neon). Paste the full connection string in the
+      # dashboard, e.g. postgresql://user:pass@host/db?sslmode=require
+      - key: DATABASE_URL
+        sync: false
+
+      # Required: signs portal login JWTs. Render generates a strong random value.
+      - key: JWT_SECRET
+        generateValue: true
+
+      # Seed a small demo hierarchy (E001 lead, E002 report) on first boot.
+      - key: HR_SEED_DEMO_EMPLOYEES
+        value: "1"
+
+      # Portal HR login — set these in the dashboard to be able to sign in.
+      - key: PORTAL_HR_EMAIL
+        sync: false
+      - key: PORTAL_HR_PASSWORD
+        sync: false
+
+      # Optional employee portal login (needs a valid emp_id, e.g. E002).
+      - key: PORTAL_EMP_EMAIL
+        sync: false
+      - key: PORTAL_EMP_PASSWORD
+        sync: false
+      - key: PORTAL_EMP_EMP_ID
+        sync: false
+
+      # Optional: AI assistant (POST /api/chat). Leave blank to disable chat.
+      - key: OPENROUTER_API_KEY
+        sync: false
+
+      # Optional: Gmail SMTP for manager onboarding notices.
+      - key: CB_EMAIL
+        sync: false
+      - key: CB_EMAIL_PWD
+        sync: false

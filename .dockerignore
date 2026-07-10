@@ -1,0 +1,32 @@
+# Secrets — never bake these into the image
+.env
+.env.*
+!.env.example
+claude_desktop_config.json
+secrets.json
+
+# Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+wheels/
+
+# Node / frontend build artifacts (rebuilt inside the image)
+frontend/node_modules/
+frontend/dist/
+node_modules/
+
+# VCS / IDE / OS
+.git/
+.gitignore
+.idea/
+.vscode/
+.DS_Store
+
+# Docs & local-only files
+README.md
+uv.lock
